@@ -4,7 +4,7 @@
 class Graph:
 
     # initiate every graph with origin of 0 by default
-    def __init__(self,origin=0):
+    def __init__(self,origin=(0,0)):
         self.origin = origin
         
 
@@ -43,9 +43,9 @@ class Circle(Graph):
 
 # testing
 
-c = Circle(34,3)
+c = Circle((3,6),3)
 
-l = Line(8,2)
+l = Line((34,8),2)
 
 print("circle origin = ",c.origin)
 
