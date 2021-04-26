@@ -1,6 +1,6 @@
 
 from tkinter import *
-from Plot import *
+import Plot as pl
 
 
 
@@ -18,6 +18,7 @@ Grid.rowconfigure(window,2,weight=1)
 
 def PressingPlotButton():
     print("calling main function in Plot.py")
+    pl.Main()
     
 
 def PressingPracticeProblemsButton():
