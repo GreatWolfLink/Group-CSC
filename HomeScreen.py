@@ -1,47 +1,127 @@
 
-from tkinter import *
-import Plot as pl
+import tkinter as tk
 
 
 
-window = Tk()
 
-window.geometry("500x500")
+class GUI(tk.Tk):
+    def __init__(self, *args, **kwargs):
 
-Grid.rowconfigure(window,0)
-Grid.columnconfigure(window,0,weight=1)
+        tk.Tk.__init__(self, *args, **kwargs)
+        
+        window = tk.Frame(self)
+        window.pack(side="top", fill="both", expand=True)
+        window.grid_rowconfigure(0, weight=1)
+        window.grid_columnconfigure(0, weight=1)
 
-Grid.rowconfigure(window,1,weight=1)
-Grid.rowconfigure(window,2,weight=1)
+        self.frames = {}
+
+        for F in (StartPage, PageOne, PageTwo):
+
+            frame = F(window,self)
+
+            self.frames[F] = frame
+
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        self.show_frame(StartPage)
+
+
+    def show_frame(self,Page):
+
+        frame = self.frames[Page]
+        frame.tkraise()
 
 
 
-def PressingPlotButton():
-    print("calling main function in Plot.py")
-    pl.Main()
+
+
+
+
+
+class StartPage(tk.Frame):
+
+    def __init__(self,parent,controller):
+        tk.Frame. __init__(self,parent)
+
+        label = tk.Label(self,text="Optimized Graphing Tool")
+        label.pack(pady=10,padx=10)
+        button1 = tk.Button(self,text="Plot",fg="red",command=lambda: controller.show_frame(PageOne))
+        button1.pack()
+
+        button2 = tk.Button(self,text="Options",fg="green",command=lambda: controller.show_frame(PageTwo))
+        button2.pack()
+
+        
+
+        
+
+        
+
+        
+class PageOne(tk.Frame):
+
+    def __init__(self,parent,controller):
+        tk.Frame. __init__(self,parent)
+
+        label = tk.Label(self,text="Plot")
+        label.pack()
+
+        button = tk.Button(self,text="back", command=lambda: controller.show_frame(StartPage))
+        button.pack()
     
 
-def PressingPracticeProblemsButton():
-    print("Open practice problems")
-
-def PressingOptionsButton():
-    print("Open options menu")
-    
-
-label = Label(window,text="Optimized Graphing Tool")
-button1 = Button(window,text="Plot",fg="red",command=PressingPlotButton)
-button2 = Button(window,text="Practice Problems",fg="blue",command=PressingPracticeProblemsButton)
-button3 = Button(window,text="Options",fg="green",command=PressingOptionsButton)
 
 
 
 
-label.grid(row=0,column=0,sticky=N+S+E+W)
-button1.grid(row=1,column=0,sticky=N+S+E+W)
-button2.grid(row=2,column=0,sticky=N+S+E+W)
-button3.grid(row=3,column=0,sticky=N+S+E+W)
+class PageTwo(tk.Frame):
+
+    def __init__(self,parent,controller):
+        tk.Frame. __init__(self,parent)
 
 
-window.mainloop()
+        label = tk.Label(self,text="Options")
+        label.pack()
+
+        button = tk.Button(self,text="back", command=lambda: controller.show_frame(StartPage))
+        button.pack()
+   
+
+
+
+
+
+
+
+
+
+
+
+
+Menu = GUI()
+Menu.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

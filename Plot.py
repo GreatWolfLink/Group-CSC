@@ -50,24 +50,11 @@ class Circle(Graph):
 
 
 
-def Main():
 
-    PlotWindow = Tk()
-    PlotWindow.geometry("500x500")
+
+
 
     
-
-
-    Line = Button(PlotWindow,text="Line",pady=8)
-    Line.pack(side=BOTTOM)
-
-
-    Circle = Button(PlotWindow,text="Circle",pady=8)
-    Circle.pack(side=BOTTOM)
-
-
-    Parabola = Button(PlotWindow,text="Parabola",pady=8)
-    Parabola.pack(side=BOTTOM)
  
  
 
@@ -76,7 +63,7 @@ def Main():
 
     
 
-    PlotWindow.mainloop()
+
     
     
     
