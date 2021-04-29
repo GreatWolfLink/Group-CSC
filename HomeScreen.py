@@ -1,6 +1,4 @@
-
 import tkinter as tk
-
 
 
 
@@ -13,6 +11,8 @@ class GUI(tk.Tk):
         window.pack(side="top", fill="both", expand=True)
         window.grid_rowconfigure(0, weight=1)
         window.grid_columnconfigure(0, weight=1)
+        self.state('zoomed')
+        self.resizable(0,0)
 
         self.frames = {}
 
@@ -36,9 +36,6 @@ class GUI(tk.Tk):
 
 
 
-
-
-
 class StartPage(tk.Frame):
 
     def __init__(self,parent,controller):
@@ -54,11 +51,6 @@ class StartPage(tk.Frame):
 
         
 
-        
-
-        
-
-        
 class PageOne(tk.Frame):
 
     def __init__(self,parent,controller):
@@ -70,9 +62,6 @@ class PageOne(tk.Frame):
         button = tk.Button(self,text="back", command=lambda: controller.show_frame(StartPage))
         button.pack()
     
-
-
-
 
 
 class PageTwo(tk.Frame):
@@ -91,36 +80,8 @@ class PageTwo(tk.Frame):
 
 
 
-
-
-
-
-
-
-
-
 Menu = GUI()
 Menu.mainloop()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
