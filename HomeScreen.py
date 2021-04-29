@@ -1,4 +1,5 @@
 import tkinter as tk
+import Plot as pl
 
 
 
@@ -59,7 +60,7 @@ class PageOne(tk.Frame):
         label = tk.Label(self,text="Plot")
         label.pack()
 
-        button = tk.Button(self,text="back", command=lambda: controller.show_frame(StartPage))
+        button = tk.Button(self,text="back",fg="blue", command=lambda: controller.show_frame(StartPage))
         button.pack()
     
 
@@ -73,7 +74,7 @@ class PageTwo(tk.Frame):
         label = tk.Label(self,text="Options")
         label.pack()
 
-        button = tk.Button(self,text="back", command=lambda: controller.show_frame(StartPage))
+        button = tk.Button(self,text="back",fg="blue", command=lambda: controller.show_frame(StartPage))
         button.pack()
    
 
