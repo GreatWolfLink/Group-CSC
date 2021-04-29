@@ -5,9 +5,9 @@ import tkinter as tk
 
 
 class GUI(tk.Tk):
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
 
-        tk.Tk.__init__(self, *args, **kwargs)
+        tk.Tk.__init__(self)
         
         window = tk.Frame(self)
         window.pack(side="top", fill="both", expand=True)
