@@ -1,7 +1,11 @@
 import tkinter as tk
 import Plot as pl
 import sys 
-
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
 Font = ("Times",40)
@@ -77,7 +81,20 @@ class PageOne(tk.Frame):
 
         button = tk.Button(self,text="back",fg="blue", command=lambda: controller.show_frame(StartPage),padx=100,pady=25)
         button.pack(side = tk.BOTTOM)
-    
+
+        parabolaButton = tk.Button(self, text="Parabola", fg="blue", command=lambda: parabola(),padx=100,pady=25)
+        parabolaButton.pack()
+
+        def parabola():
+            f = Figure(figsize=(5, 5), dpi=100)
+            x = np.arange(-100,100,1)
+            y = x**2 + x**2 + 2
+            axes = f.add_subplot(111)
+            axes.plot(x, y)
+            canvas = FigureCanvasTkAgg(f, self)
+            canvas.draw()
+            canvas.get_tk_widget().pack()
+
 
 class PageTwo(tk.Frame):
 
