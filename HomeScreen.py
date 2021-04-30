@@ -50,19 +50,19 @@ class StartPage(tk.Frame):
         label.pack(pady=10,padx=10)
 
 
-        button1 = tk.Button(self,text="Plot",fg="red",command=lambda: controller.show_frame(PageOne),padx=350,pady=100)
+        button1 = tk.Button(self,text="Plot",fg="red",command=lambda: controller.show_frame(PageOne),padx=350,pady=100,font=Font)
         button1.pack()
 
 
-        button2 = tk.Button(self,text="Insctructions",fg="green",command=lambda: controller.show_frame(PageTwo),padx=350,pady=100)
+        button2 = tk.Button(self,text="Insctructions",fg="green",command=lambda: controller.show_frame(PageTwo),padx=350,pady=100,font=("Times",20))
         button2.pack()
 
         
-        button3 = tk.Button(self,text="Creators",fg="orange",command=lambda: controller.show_frame(PageThree),padx=350,pady=100)
+        button3 = tk.Button(self,text="Creators",fg="orange",command=lambda: controller.show_frame(PageThree),padx=350,pady=100,font=("Times",20))
         button3.pack()
 
 
-        button4 = tk.Button(self,text="Exit",fg="pink",padx=350,pady=100)
+        button4 = tk.Button(self,text="Exit",fg="blue",padx=350,pady=100,font=("Times",20))
         button4.pack()
 
         
@@ -85,7 +85,7 @@ class PageTwo(tk.Frame):
         tk.Frame. __init__(self,parent)
 
 
-        label = tk.Label(self,text="Instructions",font=Font)
+        label = tk.Label(self,text="Instructions:",font=Font)
         label.pack()
 
         button = tk.Button(self,text="back",fg="blue", command=lambda: controller.show_frame(StartPage),padx=100,pady=25)
