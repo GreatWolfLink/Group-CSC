@@ -6,9 +6,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
+from tkinter import ttk
 
 Font = ("Times",40)
+Font2 = ("Times",30)
 window = tk.Tk()
 frame = tk.Frame(window)
 
@@ -54,24 +55,32 @@ class StartPage(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame. __init__(self,parent)
 
+        height =30
+        width = 500
+        ButtonHeight = 2
+        FontColor = "blue"
+
         label = tk.Label(self,text="Optimized Graphing Tool",font=Font)
-        label.pack(pady=10,padx=10)
+        label.pack(fill=tk.BOTH,pady=60)
 
 
-        button1 = tk.Button(self,text="Plot",fg="red",command=lambda: controller.show_frame(PageOne),padx=350,pady=100,font=Font)
-        button1.pack()
+      
+        button1 = tk.Button(self,text="Plot",fg=FontColor,command=lambda: controller.show_frame(PageOne),font=Font2,height=ButtonHeight)
+        button1.pack(fill=tk.BOTH,pady=height,padx=width)
 
 
-        button2 = tk.Button(self,text="Insctructions",fg="green",command=lambda: controller.show_frame(PageTwo),padx=350,pady=100,font=("Times",20))
-        button2.pack()
+        button2 = tk.Button(self,text="Insctructions",fg=FontColor,command=lambda: controller.show_frame(PageTwo),font=Font2,height=ButtonHeight)
+        button2.pack(fill=tk.BOTH,pady=height,padx=width)
+
 
         
-        button3 = tk.Button(self,text="Creators",fg="orange",command=lambda: controller.show_frame(PageThree),padx=350,pady=100,font=("Times",20))
-        button3.pack()
+        
+        button3 = tk.Button(self,text="Creators",fg=FontColor,command=lambda: controller.show_frame(PageThree),font=Font2,height=ButtonHeight)
+        button3.pack(fill=tk.BOTH,pady=height,padx=width)
 
 
-        button4 = tk.Button(self,text="Exit",fg="blue",command=lambda: GUI.Quit(),padx=350,pady=100,font=("Times",20))
-        button4.pack()
+        button4 = tk.Button(self,text="Exit",fg=FontColor,command=lambda: GUI.Quit(),font=Font2,height=ButtonHeight)
+        button4.pack(fill=tk.BOTH,pady=height,padx=width)
 
         
 
@@ -109,6 +118,9 @@ class PageTwo(tk.Frame):
         label = tk.Label(self,text="Instructions:",font=Font)
         label.pack()
 
+        label = tk.Label(self,text="  ",fg="green",font=Font)
+        label.pack()
+
         button = tk.Button(self,text="back",fg="blue", command=lambda: controller.show_frame(StartPage),padx=100,pady=25)
         button.pack(side = tk.BOTTOM)
    
@@ -122,7 +134,7 @@ class PageThree(tk.Frame):
         label = tk.Label(self,text="Creators:",font=Font)
         label.pack()
 
-        label = tk.Label(self,text="Grant Gremillion \n Connor Broussard \n Ethan Joyce",fg="green",font=Font)
+        label = tk.Label(self,text="\n\n\nGrant Gremillion \n \n \nConnor Broussard \n \n \nEthan Joyce",fg="green",font=Font)
         label.pack()
 
         button = tk.Button(self,text="back",fg="blue",command=lambda: controller.show_frame(StartPage),padx=100,pady=25)
