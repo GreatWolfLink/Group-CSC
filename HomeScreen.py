@@ -9,29 +9,29 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
 Font = ("Times",40)
+window = tk.Tk()
+frame = tk.Frame(window)
 
 
-class GUI(tk.Tk):
-    def __init__(self):
-
-        tk.Tk.__init__(self)
+class GUI():
+    def __init__(self,frame,window):
         
-        window = tk.Frame(self)
-        window.pack(side="top", fill="both", expand=True)
-        window.grid_rowconfigure(0, weight=1)
-        window.grid_columnconfigure(0, weight=1)
-        self.state('zoomed')
-        self.resizable(0,0)
+        frame.pack(side="top", fill="both", expand=True)
+        frame.grid_rowconfigure(0, weight=1)
+        frame.grid_columnconfigure(0, weight=1)
+        
+        window.state('zoomed')
+        window.resizable(0,0)
 
         self.frames = {}
 
         for F in (StartPage, PageOne, PageTwo, PageThree):
 
-            frame = F(window,self)
+            LocalFrame = F(frame,self)
 
-            self.frames[F] = frame
+            self.frames[F] = LocalFrame
 
-            frame.grid(row=0, column=0, sticky="nsew")
+            LocalFrame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame(StartPage)
 
@@ -40,6 +40,10 @@ class GUI(tk.Tk):
 
         frame = self.frames[Page]
         frame.tkraise()
+
+
+    def Quit():
+        window.destroy()
 
 
   
@@ -66,7 +70,7 @@ class StartPage(tk.Frame):
         button3.pack()
 
 
-        button4 = tk.Button(self,text="Exit",fg="blue",padx=350,pady=100,font=("Times",20))
+        button4 = tk.Button(self,text="Exit",fg="blue",command=lambda: GUI.Quit(),padx=350,pady=100,font=("Times",20))
         button4.pack()
 
         
@@ -125,12 +129,8 @@ class PageThree(tk.Frame):
         button.pack(side = tk.BOTTOM)
 
 
-
-
-
-
-Menu = GUI()
-Menu.mainloop()
+Menu = GUI(frame,window)
+window.mainloop()
 
 
 
