@@ -6,12 +6,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from tkinter import ttk
+
 
 Font = ("Bahnschrift SemiCondensed",80)
 Font2 = ("Times",30)
 window = tk.Tk()
 frame = tk.Frame(window)
+
 
 
 class GUI():
@@ -58,6 +59,8 @@ class StartPage(tk.Frame):
         width = 500
         ButtonHeight = 2
         FontColor = "blue"
+        BackgroundImg = tk.PhotoImage(file="Background.gif")
+
 
         label = tk.Label(self,text="Optimized Graphing Tool",font=Font)
         label.pack(fill=tk.BOTH,pady=50)
