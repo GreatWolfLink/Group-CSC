@@ -8,7 +8,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from tkinter import ttk
 
-Font = ("Times",40)
+Font = ("Bahnschrift SemiCondensed",80)
 Font2 = ("Times",30)
 window = tk.Tk()
 frame = tk.Frame(window)
@@ -49,7 +49,6 @@ class GUI():
 
   
 
-        
 class StartPage(tk.Frame):
 
     def __init__(self,parent,controller):
@@ -61,7 +60,7 @@ class StartPage(tk.Frame):
         FontColor = "blue"
 
         label = tk.Label(self,text="Optimized Graphing Tool",font=Font)
-        label.pack(fill=tk.BOTH,pady=60)
+        label.pack(fill=tk.BOTH,pady=50)
 
 
       
@@ -69,7 +68,7 @@ class StartPage(tk.Frame):
         button1.pack(fill=tk.BOTH,pady=height,padx=width)
 
 
-        button2 = tk.Button(self,text="Insctructions",fg=FontColor,command=lambda: controller.show_frame(PageTwo),font=Font2,height=ButtonHeight)
+        button2 = tk.Button(self,text="Instructions",fg=FontColor,command=lambda: controller.show_frame(PageTwo),font=Font2,height=ButtonHeight)
         button2.pack(fill=tk.BOTH,pady=height,padx=width)
 
 
@@ -118,7 +117,7 @@ class PageTwo(tk.Frame):
         label = tk.Label(self,text="Instructions:",font=Font)
         label.pack()
 
-        label = tk.Label(self,text="  ",fg="green",font=Font)
+        label = tk.Label(self,text="  ",fg="green",font=Font2)
         label.pack()
 
         button = tk.Button(self,text="back",fg="blue", command=lambda: controller.show_frame(StartPage),padx=100,pady=25)
@@ -134,7 +133,7 @@ class PageThree(tk.Frame):
         label = tk.Label(self,text="Creators:",font=Font)
         label.pack()
 
-        label = tk.Label(self,text="\n\n\nGrant Gremillion \n \n \nConnor Broussard \n \n \nEthan Joyce",fg="green",font=Font)
+        label = tk.Label(self,text="\n\n\nGrant Gremillion \n \n \nConnor Broussard \n \n \nEthan Joyce",fg="green",font=Font2)
         label.pack()
 
         button = tk.Button(self,text="back",fg="blue",command=lambda: controller.show_frame(StartPage),padx=100,pady=25)
