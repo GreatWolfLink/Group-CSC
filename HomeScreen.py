@@ -1,11 +1,8 @@
 import tkinter as tk
-import Plot as pl
-import sys 
-import matplotlib
+import tkinter.simpledialog as sd
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
 
 Font = ("Bahnschrift SemiCondensed",80)
@@ -48,7 +45,7 @@ class GUI():
         window.destroy()
 
 
-  
+
 
 class StartPage(tk.Frame):
 
@@ -93,7 +90,6 @@ class PageOne(tk.Frame):
 
         self.can = None
         x = np.arange(-100, 100, 1)
-        y2 = x ** 3 + 2
         label = tk.Label(self,text="Plot",font=Font)
         label.pack()
 
@@ -101,13 +97,13 @@ class PageOne(tk.Frame):
                            command=lambda: controller.show_frame(StartPage),padx=100,pady=25)
         button.pack(side = tk.BOTTOM)
 
-        parabolaButton = tk.Button(self, text="Parabola", fg="blue",
+        parabolaButton = tk.Button(self, text="Quadratic", fg="blue",
                                    command=lambda: PageOne.ParabolaInput(self),padx=100,pady=25)
         parabolaButton.pack()
 
-        CubicButton = tk.Button(self, text="Cubic", fg="blue",
-                                   command=lambda: [PageOne.graph(self, x, y2)], padx=100, pady=25)
-        CubicButton.pack()
+        LinearButton = tk.Button(self, text="Linear", fg="blue",
+                                   command=lambda: [PageOne.LinearInput(self)], padx=100, pady=25)
+        LinearButton.pack()
 
     # Graphs based on an x value and a y value
     # y value is the equation with whatever inputs are received entered in beforehand
@@ -117,21 +113,36 @@ class PageOne(tk.Frame):
             self.can.destroy()
         f = plt.figure()
         canvas = FigureCanvasTkAgg(f, self)
-        axes1 = f.add_subplot(111)
-        axes1.plot(x, y)
-        axes1.grid()
+        axes = f.add_subplot(111)
+        axes.plot(x, y)
+
+        # Sets the origin to be clearly displayed
+        axes.spines['left'].set_position('zero')
+        axes.spines['right'].set_color('none')
+        axes.spines['bottom'].set_position('zero')
+        axes.spines['top'].set_color('none')
+        axes.xaxis.set_ticks_position('bottom')
+        axes.yaxis.set_ticks_position('left')
+        axes.grid()
         self.can = canvas.get_tk_widget()
         self.can.pack()
         print("hahahaha")
 
+    # Takes user input for the necessary intergers and uses them in an equation
     def ParabolaInput(self):
         x = np.arange(-100, 100, 1)
-        a = float(input("Input an A value"))
-        b = float(input("Input a B value"))
-        c = float(input("Input a C value"))
-        y = (a*(x ** 2)) + (b * (x ** 2)) + c
+        a = sd.askfloat('User Input', "Input an A value")
+        b = sd.askfloat('User Input', "Input a B value")
+        c = sd.askfloat('User Input', "Input a C value")
+        y = (a*(x ** 2)) + (b * x) + c
         PageOne.graph(self, x, y)
 
+    def LinearInput(self):
+        x = np.arange(-100, 100, 1)
+        m = sd.askfloat('User Input', "Input a slope")
+        b = sd.askfloat('User Input', "Input a y-intercept")
+        y = (m*x)+b
+        PageOne.graph(self, x, y)
 
 class PageTwo(tk.Frame):
 
