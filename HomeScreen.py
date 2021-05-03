@@ -93,7 +93,6 @@ class PageOne(tk.Frame):
 
         self.can = None
         x = np.arange(-100, 100, 1)
-        y = x ** 2 + x ** 2 + 2
         y2 = x ** 3 + 2
         label = tk.Label(self,text="Plot",font=Font)
         label.pack()
@@ -103,7 +102,7 @@ class PageOne(tk.Frame):
         button.pack(side = tk.BOTTOM)
 
         parabolaButton = tk.Button(self, text="Parabola", fg="blue",
-                                   command=lambda: PageOne.graph(self,x,y),padx=100,pady=25)
+                                   command=lambda: PageOne.ParabolaInput(self),padx=100,pady=25)
         parabolaButton.pack()
 
         CubicButton = tk.Button(self, text="Cubic", fg="blue",
@@ -113,7 +112,6 @@ class PageOne(tk.Frame):
     # Graphs based on an x value and a y value
     # y value is the equation with whatever inputs are received entered in beforehand
     # destroys previous graph when it runs
-
     def graph(self, x, y):
         if self.can:
             self.can.destroy()
@@ -126,6 +124,13 @@ class PageOne(tk.Frame):
         self.can.pack()
         print("hahahaha")
 
+    def ParabolaInput(self):
+        x = np.arange(-100, 100, 1)
+        a = float(input("Input an A value"))
+        b = float(input("Input a B value"))
+        c = float(input("Input a C value"))
+        y = (a*(x ** 2)) + (b * (x ** 2)) + c
+        PageOne.graph(self, x, y)
 
 
 class PageTwo(tk.Frame):
