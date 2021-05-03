@@ -91,24 +91,41 @@ class PageOne(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame. __init__(self,parent)
 
+        self.can = None
+        x = np.arange(-100, 100, 1)
+        y = x ** 2 + x ** 2 + 2
+        y2 = x ** 3 + 2
         label = tk.Label(self,text="Plot",font=Font)
         label.pack()
 
-        button = tk.Button(self,text="back",fg="blue", command=lambda: controller.show_frame(StartPage),padx=100,pady=25)
+        button = tk.Button(self,text="back",fg="blue",
+                           command=lambda: controller.show_frame(StartPage),padx=100,pady=25)
         button.pack(side = tk.BOTTOM)
 
-        parabolaButton = tk.Button(self, text="Parabola", fg="blue", command=lambda: parabola(),padx=100,pady=25)
+        parabolaButton = tk.Button(self, text="Parabola", fg="blue",
+                                   command=lambda: PageOne.graph(self,x,y),padx=100,pady=25)
         parabolaButton.pack()
 
-        def parabola():
-            f = Figure(figsize=(5, 5), dpi=100)
-            x = np.arange(-100,100,1)
-            y = x**2 + x**2 + 2
-            axes = f.add_subplot(111)
-            axes.plot(x, y)
-            canvas = FigureCanvasTkAgg(f, self)
-            canvas.draw()
-            canvas.get_tk_widget().pack()
+        CubicButton = tk.Button(self, text="Cubic", fg="blue",
+                                   command=lambda: [PageOne.graph(self, x, y2)], padx=100, pady=25)
+        CubicButton.pack()
+
+    # Graphs based on an x value and a y value
+    # y value is the equation with whatever inputs are received entered in beforehand
+    # destroys previous graph when it runs
+
+    def graph(self, x, y):
+        if self.can:
+            self.can.destroy()
+        f = plt.figure()
+        canvas = FigureCanvasTkAgg(f, self)
+        axes1 = f.add_subplot(111)
+        axes1.plot(x, y)
+        axes1.grid()
+        self.can = canvas.get_tk_widget()
+        self.can.pack()
+        print("hahahaha")
+
 
 
 class PageTwo(tk.Frame):
