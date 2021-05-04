@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
 
-Font = ("Bahnschrift SemiCondensed",80)
+Font = ("Bahnschrift SemiCondensed",60)
 Font2 = ("Times",30)
 window = tk.Tk()
 frame = tk.Frame(window)
@@ -52,7 +52,7 @@ class StartPage(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame. __init__(self,parent)
 
-        height =30
+        height =5
         width = 500
         ButtonHeight = 2
         FontColor = "blue"
@@ -60,7 +60,7 @@ class StartPage(tk.Frame):
 
 
         label = tk.Label(self,text="Optimized Graphing Tool",font=Font)
-        label.pack(fill=tk.BOTH,pady=50)
+        label.pack(fill=tk.BOTH,pady=10)
 
 
       
@@ -169,7 +169,7 @@ class PageThree(tk.Frame):
         label = tk.Label(self,text="Creators:",font=Font)
         label.pack()
 
-        label = tk.Label(self,text="\n\n\nGrant Gremillion \n \n \nConnor Broussard \n \n \nEthan Joyce",fg="green",font=Font2)
+        label = tk.Label(self,text="\nGrant Gremillion \n \n \nConnor Broussard \n \n \nEthan Joyce",fg="green",font=Font2)
         label.pack()
 
         button = tk.Button(self,text="back",fg="blue",command=lambda: controller.show_frame(StartPage),padx=100,pady=25)
