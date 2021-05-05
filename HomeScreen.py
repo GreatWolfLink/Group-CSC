@@ -3,7 +3,7 @@ import tkinter.simpledialog as sd
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
-from PIL import ImageTk, Image
+import random
 
 Font = ("Bahnschrift SemiCondensed", 60)
 Font2 = ("Times", 30)
@@ -55,7 +55,7 @@ class StartPage(tk.Frame):
         FontColor = "blue"
 
         label = tk.Label(self, text="Optimized Graphing Tool", font=Font)
-        label.pack(fill=tk.BOTH, pady=spacing)
+        label.pack(fill=tk.BOTH, pady=10)
 
         button1 = tk.Button(self, text="Plot", fg=FontColor, command=lambda: controller.show_frame(PageOne), font=Font2,
                             height=ButtonHeightWeight)
@@ -83,6 +83,14 @@ class PageOne(tk.Frame):
         x = np.arange(-100, 100, 1)
         label = tk.Label(self, text="Plot", font=Font)
         label.pack()
+
+        ProblemText = tk.StringVar()
+        ProblemText.set(" ")
+        ProblemLabel = tk.Label(self, textvariable=ProblemText)
+        GenerateProblemButton = tk.Button(self, text="Generate Problem",command=lambda: self.ChangeText(ProblemText))
+
+        GenerateProblemButton.pack()
+        ProblemLabel.pack()
 
         button = tk.Button(self, text="Back", fg="blue",
                            command=lambda: controller.show_frame(StartPage), padx=100, pady=25)
@@ -117,7 +125,7 @@ class PageOne(tk.Frame):
         axes.grid()
         self.can = canvas.get_tk_widget()
         self.can.pack()
-        print("hahahaha")
+        
 
     # Takes user input for the necessary integers and uses them in an equation
     def ParabolaInput(self):
@@ -136,6 +144,13 @@ class PageOne(tk.Frame):
         PageOne.graph(self, x, y)
 
 
+    def ChangeText(self,ProblemText):
+        QuestionList = ["Graph the equation 4x^2 + 3x + 28 and write the range and domain of the function.","q2","q3","q4","q5"]
+        ProblemText.set(random.choice(QuestionList))
+
+        
+
+
 class PageTwo(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -144,7 +159,7 @@ class PageTwo(tk.Frame):
         label = tk.Label(self, text="Instructions:", font=Font)
         label.pack()
 
-        label = tk.Label(self, text="  ", fg="green", font=Font2)
+        label = tk.Label(self, text=" \n 1. Generate a random problem \n\n 2. Select function button appropriate for question \n\n 3. Input parameters asked in question \n\n 4. Use visual to help solve problem ", fg="green", font=Font2)
         label.pack()
 
         button = tk.Button(self, text="back", fg="blue", command=lambda: controller.show_frame(StartPage), padx=100,
