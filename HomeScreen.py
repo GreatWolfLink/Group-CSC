@@ -3,6 +3,7 @@ import tkinter.simpledialog as sd
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+from PIL import ImageTk,Image
 
 
 Font = ("Bahnschrift SemiCondensed",60)
@@ -13,6 +14,8 @@ window.state('zoomed')
 window.resizable(0,0)
 WindowWidth = window.winfo_screenwidth()
 WindowHeight = window.winfo_screenheight()
+
+
 
 
 
@@ -53,6 +56,8 @@ class StartPage(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame. __init__(self,parent)
 
+    
+     
         ButtonSpacingWeight = .04
         ButtonWidthWeight = .2
         
@@ -62,8 +67,8 @@ class StartPage(tk.Frame):
 
         ButtonHeightWeight = 2
         FontColor = "blue"
-        BackgroundImg = tk.PhotoImage(file="Background.gif")
 
+   
 
         label = tk.Label(self,text="Optimized Graphing Tool",font=Font)
         label.pack(fill=tk.BOTH,pady=spacing)
