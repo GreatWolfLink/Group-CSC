@@ -9,6 +9,10 @@ Font = ("Bahnschrift SemiCondensed",60)
 Font2 = ("Times",30)
 window = tk.Tk()
 frame = tk.Frame(window)
+window.state('zoomed')
+window.resizable(0,0)
+WindowWidth = window.winfo_screenwidth()
+WindowHeight = window.winfo_screenheight()
 
 
 
@@ -19,9 +23,6 @@ class GUI():
         frame.grid_rowconfigure(0, weight=1)
         frame.grid_columnconfigure(0, weight=1)
         
-        window.state('zoomed')
-        window.resizable(0,0)
-
         self.frames = {}
 
         for F in (StartPage, PageOne, PageTwo, PageThree):
@@ -52,34 +53,39 @@ class StartPage(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame. __init__(self,parent)
 
-        height =5
-        width = 500
-        ButtonHeight = 2
+        ButtonSpacingWeight = .04
+        ButtonWidthWeight = .2
+        
+        spacing = int(WindowHeight * ButtonSpacingWeight)
+        width = int(WindowWidth * ButtonWidthWeight)
+
+
+        ButtonHeightWeight = 2
         FontColor = "blue"
         BackgroundImg = tk.PhotoImage(file="Background.gif")
 
 
         label = tk.Label(self,text="Optimized Graphing Tool",font=Font)
-        label.pack(fill=tk.BOTH,pady=10)
+        label.pack(fill=tk.BOTH,pady=spacing)
 
 
       
-        button1 = tk.Button(self,text="Plot",fg=FontColor,command=lambda: controller.show_frame(PageOne),font=Font2,height=ButtonHeight)
-        button1.pack(fill=tk.BOTH,pady=height,padx=width)
+        button1 = tk.Button(self,text="Plot",fg=FontColor,command=lambda: controller.show_frame(PageOne),font=Font2,height=ButtonHeightWeight)
+        button1.pack(fill=tk.BOTH,pady=spacing,padx=width)
 
 
-        button2 = tk.Button(self,text="Instructions",fg=FontColor,command=lambda: controller.show_frame(PageTwo),font=Font2,height=ButtonHeight)
-        button2.pack(fill=tk.BOTH,pady=height,padx=width)
+        button2 = tk.Button(self,text="Instructions",fg=FontColor,command=lambda: controller.show_frame(PageTwo),font=Font2,height=ButtonHeightWeight)
+        button2.pack(fill=tk.BOTH,pady=spacing,padx=width)
 
 
         
         
-        button3 = tk.Button(self,text="Creators",fg=FontColor,command=lambda: controller.show_frame(PageThree),font=Font2,height=ButtonHeight)
-        button3.pack(fill=tk.BOTH,pady=height,padx=width)
+        button3 = tk.Button(self,text="Creators",fg=FontColor,command=lambda: controller.show_frame(PageThree),font=Font2,height=ButtonHeightWeight)
+        button3.pack(fill=tk.BOTH,pady=spacing,padx=width)
 
 
-        button4 = tk.Button(self,text="Exit",fg=FontColor,command=lambda: GUI.Quit(),font=Font2,height=ButtonHeight)
-        button4.pack(fill=tk.BOTH,pady=height,padx=width)
+        button4 = tk.Button(self,text="Exit",fg=FontColor,command=lambda: GUI.Quit(),font=Font2,height=ButtonHeightWeight)
+        button4.pack(fill=tk.BOTH,pady=spacing,padx=width)
 
         
 
