@@ -18,6 +18,7 @@ WindowHeight = window.winfo_screenheight()
 
 class GUI():
     def __init__(self, frame, window):
+        
         frame.pack(side="top", fill="both", expand=True)
         frame.grid_rowconfigure(0, weight=1)
         frame.grid_columnconfigure(0, weight=1)
@@ -111,6 +112,7 @@ class PageOne(tk.Frame):
         plot1 = fig.add_subplot(111)
         plot1.plot()
         plot1.grid()
+        plot1.margins(1000,1000)
         canvas2 = FigureCanvasTkAgg(fig, master = canvas1)
         canvas2.draw
         canvas2.get_tk_widget().pack()
@@ -160,7 +162,7 @@ class PageOne(tk.Frame):
         x = np.arange(-100, 100, 1)
         m = sd.askfloat('User Input', "Input a slope")
         b = sd.askfloat('User Input', "Input a y-intercept")
-        canvas1.destroy
+        canvas1.destroy()
         y = (m * x) + b
         PageOne.graph(self, x, y)
 
