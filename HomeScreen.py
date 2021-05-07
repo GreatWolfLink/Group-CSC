@@ -57,24 +57,27 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
+        Width = 15
+        
         label = tk.Label(self, text="Optimized Graphing Tool", font=Font)
-        label.pack(fill=tk.BOTH, pady=10)
+        label.grid(row=0,column=0,columnspan=15)
 
-        button1 = tk.Button(self, text="Plot", fg=FontColor, command=lambda: controller.show_frame(PageOne), font=Font2,
-                            height=ButtonHeightWeight)
-        button1.pack(fill=tk.BOTH, pady=spacing, padx=width)
+        for row in range(15):
+            tk.Grid.rowconfigure(self,row,weight=1)
+        for column in range(15):
+            tk.Grid.columnconfigure(self,column,weight=1)
 
-        button2 = tk.Button(self, text="Instructions", fg=FontColor, command=lambda: controller.show_frame(PageTwo),
-                            font=Font2, height=ButtonHeightWeight)
-        button2.pack(fill=tk.BOTH, pady=spacing, padx=width)
+        button1 = tk.Button(self, text="Plot", fg=FontColor, command=lambda: controller.show_frame(PageOne), font=Font2, height=ButtonHeightWeight,width=Width)
+        button1.grid(row=4,column=6,sticky=tk.N+tk.S+tk.E+tk.W)
 
-        button3 = tk.Button(self, text="Creators", fg=FontColor, command=lambda: controller.show_frame(PageThree),
-                            font=Font2, height=ButtonHeightWeight)
-        button3.pack(fill=tk.BOTH, pady=spacing, padx=width)
+        button2 = tk.Button(self, text="Instructions", fg=FontColor, command=lambda: controller.show_frame(PageTwo), font=Font2, height=ButtonHeightWeight,width=Width)
+        button2.grid(row=4,column=8,sticky=tk.N+tk.S+tk.E+tk.W)
 
-        button4 = tk.Button(self, text="Exit", fg=FontColor, command=lambda: GUI.Quit(), font=Font2,
-                            height=ButtonHeightWeight)
-        button4.pack(fill=tk.BOTH, pady=spacing, padx=width)
+        button3 = tk.Button(self, text="Creators", fg=FontColor, command=lambda: controller.show_frame(PageThree), font=Font2, height=ButtonHeightWeight,width=Width)
+        button3.grid(row=6,column=6,sticky=tk.N+tk.S+tk.E+tk.W)
+
+        button4 = tk.Button(self, text="Exit", fg=FontColor, command=lambda: GUI.Quit(), font=Font2,height=ButtonHeightWeight,width=Width)
+        button4.grid(row=6,column=8,sticky=tk.N+tk.S+tk.E+tk.W)
 
 
 class PageOne(tk.Frame):
