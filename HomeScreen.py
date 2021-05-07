@@ -6,6 +6,10 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 import random
 from matplotlib.figure import Figure
 import math
+from PIL import ImageTk, Image
+
+#NOTE::This is the path to the background sprite
+backgroundSpritePath = "Background.jpg"
 
 Font = ("Bahnschrift SemiCondensed", 60)
 Font2 = ("Times", 30)
@@ -59,6 +63,18 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         Width = 15
+
+        #NOTE::have to update window before grabbing width and height
+        window.update()
+        ScreenWidth = window.winfo_width()
+        ScreenHeight = window.winfo_height()
+
+        #NOTE::Adding background image
+        self.img = ImageTk.PhotoImage(Image.open(backgroundSpritePath).resize((ScreenWidth, ScreenHeight)))
+        self.background_label = tk.Label(self, image=self.img)
+        self.background_label.image = self.background_label
+
+        self.background_label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
         
         label = tk.Label(self, text="Optimized Graphing Tool", font=Font)
         label.grid(row=0,column=0,columnspan=15)
@@ -89,6 +105,18 @@ class PageOne(tk.Frame):
         width = 5
         self.can = None
         x = np.arange(-100, 100, 1)
+
+        #NOTE::have to update window before grabbing width and height
+        window.update()
+        ScreenWidth = window.winfo_width()
+        ScreenHeight = window.winfo_height()
+
+        #NOTE::Adding background image
+        self.img = ImageTk.PhotoImage(Image.open(backgroundSpritePath).resize((ScreenWidth, ScreenHeight)))
+        self.background_label = tk.Label(self, image=self.img)
+        self.background_label.image = self.background_label
+
+        self.background_label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
         label = tk.Label(self, text="Plot", font=Font)
         label.grid(row=0,column=0,columnspan=15)
@@ -246,6 +274,18 @@ class PageTwo(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
+        #NOTE::have to update window before grabbing width and height
+        window.update()
+        ScreenWidth = window.winfo_width()
+        ScreenHeight = window.winfo_height()
+
+        #NOTE::Adding background image
+        self.img = ImageTk.PhotoImage(Image.open(backgroundSpritePath).resize((ScreenWidth, ScreenHeight)))
+        self.background_label = tk.Label(self, image=self.img)
+        self.background_label.image = self.background_label
+
+        self.background_label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+
         label = tk.Label(self, text="Instructions:", font=Font)
         label.grid(row=0,column=0,columnspan=15)
 
@@ -266,6 +306,18 @@ class PageThree(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
+        #NOTE::have to update window before grabbing width and height
+        window.update()
+        ScreenWidth = window.winfo_width()
+        ScreenHeight = window.winfo_height()
+
+        #NOTE::Adding background image
+        self.img = ImageTk.PhotoImage(Image.open(backgroundSpritePath).resize((ScreenWidth, ScreenHeight)))
+        self.background_label = tk.Label(self, image=self.img)
+        self.background_label.image = self.background_label
+
+        self.background_label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
         label = tk.Label(self, text="Creators:", font=Font)
         label.grid(row=0,column=0,columnspan=15)
