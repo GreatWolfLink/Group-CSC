@@ -20,7 +20,7 @@ ButtonSpacingWeight = .02
 ButtonWidthWeight = .2
 
 spacing = int(WindowHeight * ButtonSpacingWeight)
-width = int(WindowWidth * ButtonWidthWeight)
+#width = int(WindowWidth * ButtonWidthWeight)
 height = 5
 
 ButtonHeightWeight = 2
@@ -102,9 +102,9 @@ class PageOne(tk.Frame):
         ProblemText = tk.StringVar()
         ProblemText.set(" ")
         ProblemLabel = tk.Label(self, textvariable=ProblemText)
-        GenerateProblemButton = tk.Button(self, text="Generate Problem",command=lambda: self.ChangeText(ProblemText))
+        GenerateProblemButton = tk.Button(self, text="Generate Problem",command=lambda: self.ChangeText(ProblemText),font=Font2)
 
-        GenerateProblemButton.grid(row=0,column=12,columnspan=2)
+        GenerateProblemButton.grid(row=0,column=12,columnspan=2,sticky=tk.N+tk.W+tk.E)
         ProblemLabel.grid(row=1,column=12,columnspan=2)
 
         
@@ -115,14 +115,15 @@ class PageOne(tk.Frame):
         LinearButton.grid(row=1,column=1,sticky=tk.N+tk.W+tk.E)
 
 
-        CubicButton = tk.Button(self, text="Cubic", fg="blue", command=lambda:PageOne.CubicInput(self,canvas1),height=height,width=width)
-        CubicButton.grid(row=2,column=0,sticky=tk.N+tk.W+tk.E)
+        CubicButton = tk.Button(self, text="Cubic", fg="blue", command=lambda: PageOne.CubicInput(self,canvas1),height=height,width=width)
+        CubicButton.grid(row=1,column=2,sticky=tk.N+tk.W+tk.E)
 
+    
 
         ############ shows blank graph
         canvas1 = tk.Canvas(self)
-        canvas1.grid(row=3,column=7)
-        fig = Figure(figsize=(5,5), dpi = 100)
+        canvas1.grid(row=1,column=9)
+        fig = Figure(figsize=(7,7), dpi = 100)
         plot1 = fig.add_subplot(111)
         plot1.plot()
         plot1.grid()
@@ -135,9 +136,7 @@ class PageOne(tk.Frame):
         button = tk.Button(self, text="Back", fg="blue",command=lambda: controller.show_frame(StartPage),height=height)
         button.grid(row=15,column=0,sticky=tk.N+tk.W+tk.E)
 
-
-
-
+        
     # Graphs based on an x value and a y value
     # y value is the equation with whatever inputs are received entered in beforehand
     # destroys previous graph when it runs
@@ -159,7 +158,28 @@ class PageOne(tk.Frame):
         axes.grid()
        
         self.can = canvas.get_tk_widget()
-        self.can.grid(row=3,column=7)
+        self.can.grid(row=1,column=9)
+
+        ValuesLabel = tk.Label(self, text="x and y values")
+        ValuesLabel.grid(row=10,column=12)
+    
+
+        List = tk.Listbox(self)
+        j = 1
+        for i in x:
+            List.insert(j,i)
+            j+=1
+        List.grid(row=11,column=12)
+
+        ScrollBar = tk.Scrollbar(self,command=List.yview)
+        ScrollBar.grid(row=13,column=13)
+
+
+        
+
+        
+
+        
         
 
     # Takes user input for the necessary integers and uses them in an equation
@@ -208,7 +228,8 @@ class PageOne(tk.Frame):
             return
 
         canvas1.destroy()
-        y = (a * (x ** 3)) + (b * x ** 2) + c * x + d
+        y = ((a * (x ** 3)) + (b * x ** 2) + (c * x) + d)
+
         PageOne.graph(self, x, y)
         
 
