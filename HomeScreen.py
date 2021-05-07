@@ -15,6 +15,15 @@ window.resizable(0, 0)
 WindowWidth = window.winfo_screenwidth()
 WindowHeight = window.winfo_screenheight()
 
+ButtonSpacingWeight = .02
+ButtonWidthWeight = .2
+
+spacing = int(WindowHeight * ButtonSpacingWeight)
+width = int(WindowWidth * ButtonWidthWeight)
+
+ButtonHeightWeight = 2
+FontColor = "blue"
+
 
 class GUI():
     def __init__(self, frame, window):
@@ -47,15 +56,6 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        ButtonSpacingWeight = .02
-        ButtonWidthWeight = .2
-
-        spacing = int(WindowHeight * ButtonSpacingWeight)
-        width = int(WindowWidth * ButtonWidthWeight)
-
-        ButtonHeightWeight = 2
-        FontColor = "blue"
-
         label = tk.Label(self, text="Optimized Graphing Tool", font=Font)
         label.pack(fill=tk.BOTH, pady=10)
 
@@ -81,33 +81,38 @@ class PageOne(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
+        height = 5
+        width = 5
         self.can = None
         x = np.arange(-100, 100, 1)
 
-
         label = tk.Label(self, text="Plot", font=Font)
-        label.pack()
+        label.grid(row=0,column=0,columnspan=15)
+        
+        for row in range(15):
+            tk.Grid.rowconfigure(self,row,weight=1)
+        for column in range(15):
+            tk.Grid.columnconfigure(self,column,weight=1)
+
 
         ProblemText = tk.StringVar()
         ProblemText.set(" ")
         ProblemLabel = tk.Label(self, textvariable=ProblemText)
         GenerateProblemButton = tk.Button(self, text="Generate Problem",command=lambda: self.ChangeText(ProblemText))
 
-        GenerateProblemButton.pack()
-        ProblemLabel.pack()
+        GenerateProblemButton.grid(row=0,column=12,columnspan=2)
+        ProblemLabel.grid(row=1,column=12,columnspan=2)
 
         
-        parabolaButton = tk.Button(self, text="Quadratic", fg="blue",
-                                   command=lambda: PageOne.ParabolaInput(self,canvas1), padx=100, pady=25)
-        parabolaButton.pack()
+        ParabolaButton = tk.Button(self, text="Quadratic", fg="blue",command=lambda: PageOne.ParabolaInput(self,canvas1),height=height,width=width)
+        ParabolaButton.grid(row=1,column=0,sticky=tk.N+tk.W+tk.E)
 
-        LinearButton = tk.Button(self, text="Linear", fg="blue",
-                                 command=lambda: PageOne.LinearInput(self,canvas1), padx=100, pady=25)
-        LinearButton.pack()
+        LinearButton = tk.Button(self, text="Linear", fg="blue",command=lambda: PageOne.LinearInput(self,canvas1),height=height,width=width)
+        LinearButton.grid(row=1,column=1,sticky=tk.N+tk.W+tk.E)
 
         ############ shows blank graph
         canvas1 = tk.Canvas(self)
-        canvas1.pack()
+        canvas1.grid(row=5,column=7)
         fig = Figure(figsize=(5,5), dpi = 100)
         plot1 = fig.add_subplot(111)
         plot1.plot()
@@ -115,12 +120,11 @@ class PageOne(tk.Frame):
         plot1.margins(1000,1000)
         canvas2 = FigureCanvasTkAgg(fig, master = canvas1)
         canvas2.draw
-        canvas2.get_tk_widget().pack()
+        canvas2.get_tk_widget().grid(row=5,column=7)
         #############
 
-        button = tk.Button(self, text="Back", fg="blue",
-                           command=lambda: controller.show_frame(StartPage), padx=100, pady=25)
-        button.pack(side=tk.BOTTOM)
+        button = tk.Button(self, text="Back", fg="blue",command=lambda: controller.show_frame(StartPage),height=height)
+        button.grid(row=15,column=0,sticky=tk.N+tk.W+tk.E)
 
 
 
@@ -145,7 +149,7 @@ class PageOne(tk.Frame):
         axes.yaxis.set_ticks_position('left')
         axes.grid()
         self.can = canvas.get_tk_widget()
-        self.can.pack()
+        self.can.grid(row=5,column=7)
         
 
     # Takes user input for the necessary integers and uses them in an equation
@@ -168,7 +172,7 @@ class PageOne(tk.Frame):
 
 
     def ChangeText(self,ProblemText):
-        QuestionList = ["Graph the equation 4x^2 + 3x + 28 and write the range and domain of the function.","q2","q3","q4","q5"]
+        QuestionList = ["Graph the equation 4x^2 + 3x + 28 \n and compute the range and domain \n of the function.","q2","q3","q4","q5"]
         ProblemText.set(random.choice(QuestionList))
 
         
