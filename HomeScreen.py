@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 import random
+from matplotlib.figure import Figure
 
 Font = ("Bahnschrift SemiCondensed", 60)
 Font2 = ("Times", 30)
@@ -81,6 +82,8 @@ class PageOne(tk.Frame):
 
         self.can = None
         x = np.arange(-100, 100, 1)
+
+
         label = tk.Label(self, text="Plot", font=Font)
         label.pack()
 
@@ -92,17 +95,33 @@ class PageOne(tk.Frame):
         GenerateProblemButton.pack()
         ProblemLabel.pack()
 
+        
+        parabolaButton = tk.Button(self, text="Quadratic", fg="blue",
+                                   command=lambda: PageOne.ParabolaInput(self,canvas1), padx=100, pady=25)
+        parabolaButton.pack()
+
+        LinearButton = tk.Button(self, text="Linear", fg="blue",
+                                 command=lambda: PageOne.LinearInput(self,canvas1), padx=100, pady=25)
+        LinearButton.pack()
+
+        ############ shows blank graph
+        canvas1 = tk.Canvas(self)
+        canvas1.pack()
+        fig = Figure(figsize=(5,5), dpi = 100)
+        plot1 = fig.add_subplot(111)
+        plot1.plot()
+        plot1.grid()
+        canvas2 = FigureCanvasTkAgg(fig, master = canvas1)
+        canvas2.draw
+        canvas2.get_tk_widget().pack()
+        #############
+
         button = tk.Button(self, text="Back", fg="blue",
                            command=lambda: controller.show_frame(StartPage), padx=100, pady=25)
         button.pack(side=tk.BOTTOM)
 
-        parabolaButton = tk.Button(self, text="Quadratic", fg="blue",
-                                   command=lambda: PageOne.ParabolaInput(self), padx=100, pady=25)
-        parabolaButton.pack()
 
-        LinearButton = tk.Button(self, text="Linear", fg="blue",
-                                 command=lambda: [PageOne.LinearInput(self)], padx=100, pady=25)
-        LinearButton.pack()
+
 
     # Graphs based on an x value and a y value
     # y value is the equation with whatever inputs are received entered in beforehand
@@ -128,18 +147,20 @@ class PageOne(tk.Frame):
         
 
     # Takes user input for the necessary integers and uses them in an equation
-    def ParabolaInput(self):
+    def ParabolaInput(self,canvas1):
         x = np.arange(-100, 100, 1)
         a = sd.askfloat('User Input', "Input an A value")
         b = sd.askfloat('User Input', "Input a B value")
         c = sd.askfloat('User Input', "Input a C value")
+        canvas1.destroy()
         y = (a * (x ** 2)) + (b * x) + c
         PageOne.graph(self, x, y)
 
-    def LinearInput(self):
+    def LinearInput(self,canvas1):
         x = np.arange(-100, 100, 1)
         m = sd.askfloat('User Input', "Input a slope")
         b = sd.askfloat('User Input', "Input a y-intercept")
+        canvas1.destroy
         y = (m * x) + b
         PageOne.graph(self, x, y)
 
