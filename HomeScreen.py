@@ -5,6 +5,7 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 import random
 from matplotlib.figure import Figure
+import math
 
 Font = ("Bahnschrift SemiCondensed", 60)
 Font2 = ("Times", 30)
@@ -113,9 +114,14 @@ class PageOne(tk.Frame):
         LinearButton = tk.Button(self, text="Linear", fg="blue",command=lambda: PageOne.LinearInput(self,canvas1),height=height,width=width)
         LinearButton.grid(row=1,column=1,sticky=tk.N+tk.W+tk.E)
 
+
+        CubicButton = tk.Button(self, text="Cubic", fg="blue", command=lambda:PageOne.CubicInput(self,canvas1),height=height,width=width)
+        CubicButton.grid(row=2,column=0,sticky=tk.N+tk.W+tk.E)
+
+
         ############ shows blank graph
         canvas1 = tk.Canvas(self)
-        canvas1.grid(row=5,column=7)
+        canvas1.grid(row=3,column=7)
         fig = Figure(figsize=(5,5), dpi = 100)
         plot1 = fig.add_subplot(111)
         plot1.plot()
@@ -123,7 +129,7 @@ class PageOne(tk.Frame):
         plot1.margins(1000,1000)
         canvas2 = FigureCanvasTkAgg(fig, master = canvas1)
         canvas2.draw
-        canvas2.get_tk_widget().grid(row=5,column=7)
+        canvas2.get_tk_widget().grid(row=3,column=7)
         #############
 
         button = tk.Button(self, text="Back", fg="blue",command=lambda: controller.show_frame(StartPage),height=height)
@@ -151,29 +157,62 @@ class PageOne(tk.Frame):
         axes.xaxis.set_ticks_position('bottom')
         axes.yaxis.set_ticks_position('left')
         axes.grid()
+       
         self.can = canvas.get_tk_widget()
-        self.can.grid(row=5,column=7)
+        self.can.grid(row=3,column=7)
         
 
     # Takes user input for the necessary integers and uses them in an equation
     def ParabolaInput(self,canvas1):
-        x = np.arange(-100, 100, 1)
-        a = sd.askfloat('User Input', "Input an A value")
-        b = sd.askfloat('User Input', "Input a B value")
-        c = sd.askfloat('User Input', "Input a C value")
+
+        LeftBound = sd.askfloat('User Input', "Input lower x range")
+        RightBound = sd.askfloat('User Input', "Input upper x range")
+
+        x = np.arange(LeftBound, RightBound, 1)
+
+        a = sd.askfloat('User Input', "Input an A value / Ax^2 + Bx + C")
+        b = sd.askfloat('User Input', "Input a B value / Ax^2 + Bx + C")
+        c = sd.askfloat('User Input', "Input a C value / Ax^2 + Bx + C")
+        if a == None or b == None or c == None:
+            return
+
         canvas1.destroy()
         y = (a * (x ** 2)) + (b * x) + c
         PageOne.graph(self, x, y)
 
     def LinearInput(self,canvas1):
-        x = np.arange(-100, 100, 1)
-        m = sd.askfloat('User Input', "Input a slope")
-        b = sd.askfloat('User Input', "Input a y-intercept")
+        LeftBound = sd.askfloat('User Input', "Input lower x range")
+        RightBound = sd.askfloat('User Input', "Input upper x range")
+
+        x = np.arange(LeftBound, RightBound, 1)
+        m = sd.askfloat('User Input', "Input a slope / y = mx + b")
+        b = sd.askfloat('User Input', "Input a y-intercept / y = mx + b")
+        if m == None or b == None:
+            return
+
         canvas1.destroy()
         y = (m * x) + b
         PageOne.graph(self, x, y)
 
+    def CubicInput(self,canvas1):
+        LeftBound = sd.askfloat('User Input', "Input lower x range")
+        RightBound = sd.askfloat('User Input', "Input upper x range")
 
+        x = np.arange(LeftBound, RightBound, 1)
+
+        a = sd.askfloat('User Input', "Input an A value / Ax^3 + Bx^2 + Cx + D")
+        b = sd.askfloat('User Input', "Input a B value / Ax^3 + Bx^2 + Cx + D")
+        c = sd.askfloat('User Input', "Input a C value / Ax^3 + Bx^2 + Cx + D")
+        d = sd.askfloat('User Input', "Input a D value / Ax^3 + Bx^2 + Cx + D")
+        if a == None or b == None or c == None:
+            return
+
+        canvas1.destroy()
+        y = (a * (x ** 3)) + (b * x ** 2) + c * x + d
+        PageOne.graph(self, x, y)
+        
+
+    
     def ChangeText(self,ProblemText):
         QuestionList = ["Graph the equation 4x^2 + 3x + 28 \n and compute the range and domain \n of the function.","q2","q3","q4","q5"]
         ProblemText.set(random.choice(QuestionList))
