@@ -20,6 +20,7 @@ ButtonWidthWeight = .2
 
 spacing = int(WindowHeight * ButtonSpacingWeight)
 width = int(WindowWidth * ButtonWidthWeight)
+height = 5
 
 ButtonHeightWeight = 2
 FontColor = "blue"
@@ -81,7 +82,6 @@ class PageOne(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        height = 5
         width = 5
         self.can = None
         x = np.arange(-100, 100, 1)
@@ -184,14 +184,19 @@ class PageTwo(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         label = tk.Label(self, text="Instructions:", font=Font)
-        label.pack()
+        label.grid(row=0,column=0,columnspan=15)
+
+        for row in range(15):
+            tk.Grid.rowconfigure(self,row,weight=1)
+        for column in range(15):
+            tk.Grid.columnconfigure(self,column,weight=1)
+
 
         label = tk.Label(self, text=" \n 1. Generate a random problem \n\n 2. Select function button appropriate for question \n\n 3. Input parameters asked in question \n\n 4. Use visual to help solve problem ", fg="green", font=Font2)
-        label.pack()
+        label.grid(row=4,column=7)
 
-        button = tk.Button(self, text="back", fg="blue", command=lambda: controller.show_frame(StartPage), padx=100,
-                           pady=25)
-        button.pack(side=tk.BOTTOM)
+        button = tk.Button(self, text="back", fg="blue", command=lambda: controller.show_frame(StartPage),height = height)
+        button.grid(row=15,column=0,sticky=tk.N+tk.W+tk.E)
 
 
 class PageThree(tk.Frame):
@@ -200,15 +205,18 @@ class PageThree(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         label = tk.Label(self, text="Creators:", font=Font)
-        label.pack()
+        label.grid(row=0,column=0,columnspan=15)
 
-        label = tk.Label(self, text="\nGrant Gremillion \n \n \nConnor Broussard \n \n \nEthan Joyce", fg="green",
-                         font=Font2)
-        label.pack()
+        for row in range(15):
+            tk.Grid.rowconfigure(self,row,weight=1)
+        for column in range(15):
+            tk.Grid.columnconfigure(self,column,weight=1)
 
-        button = tk.Button(self, text="back", fg="blue", command=lambda: controller.show_frame(StartPage), padx=100,
-                           pady=25)
-        button.pack(side=tk.BOTTOM)
+        label = tk.Label(self, text="\nGrant Gremillion \n \n \nConnor Broussard \n \n \nEthan Joyce", fg="green",font=Font2)
+        label.grid(row=5,column=7)
+
+        button = tk.Button(self, text="back", fg="blue", command=lambda: controller.show_frame(StartPage),height=height)
+        button.grid(row=15,column=0,sticky=tk.N+tk.W+tk.E)
 
 
 Menu = GUI(frame, window)
