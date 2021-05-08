@@ -7,6 +7,7 @@ import random
 from matplotlib.figure import Figure
 from PIL import ImageTk, Image
 import NumbPad as NP
+import sys
 
 
 
@@ -28,7 +29,7 @@ BorderType = "solid"
 
 window = tk.Tk()
 frame = tk.Frame(window)
-window.attributes('-zoomed',True)
+#window.attributes('-zoomed',True)
 
 WindowWidth = window.winfo_screenwidth()
 WindowHeight = window.winfo_screenheight()
@@ -67,6 +68,7 @@ class GUI():
 
     def Quit():
         window.destroy()
+        sys.exit(0)
 
 
 class StartPage(tk.Frame):
@@ -226,60 +228,13 @@ class PageOne(tk.Frame):
 
     # Takes user input for the necessary integers and uses them in an equation
     def ParabolaInput(self,canvas1):
-
-        LeftBound = sd.askfloat('User Input', "Input lower x range")
-        RightBound = sd.askfloat('User Input', "Input upper x range")
-
-        x = np.arange(LeftBound, RightBound, 1)
-
-        a = sd.askfloat('User Input', "Input an A value / Ax^2 + Bx + C")
-        b = sd.askfloat('User Input', "Input a B value / Ax^2 + Bx + C")
-        c = sd.askfloat('User Input', "Input a C value / Ax^2 + Bx + C")
-        if a == None or b == None or c == None:
-            return
-
-        canvas1.destroy()
-        y = (a * (x ** 2)) + (b * x) + c
-        PageOne.graph(self, x, y)
+        InputPad = NP.NumberPad(5, canvas1, self, PageOne)
 
     def LinearInput(self,canvas1):
-
-        InputPad = NP.NumberPad()
-
-        
-        
-        LeftBound = sd.askfloat('User Input', "Input lower x range")
-        RightBound = sd.askfloat('User Input', "Input upper x range")
-
-        x = np.arange(LeftBound, RightBound, 1)
-        m = sd.askfloat('User Input', "Input a slope / y = mx + b")
-        b = sd.askfloat('User Input', "Input a y-intercept / y = mx + b")
-        if m == None or b == None:
-            return
-
-        canvas1.destroy()
-        y = (m * x) + b
-        PageOne.graph(self, x, y)
+        InputPad = NP.NumberPad(4, canvas1, self, PageOne)
 
     def CubicInput(self,canvas1):
-        LeftBound = sd.askfloat('User Input', "Input lower x range")
-        RightBound = sd.askfloat('User Input', "Input upper x range")
-
-        x = np.arange(LeftBound, RightBound, 1)
-
-        a = sd.askfloat('User Input', "Input an A value / Ax^3 + Bx^2 + Cx + D")
-        b = sd.askfloat('User Input', "Input a B value / Ax^3 + Bx^2 + Cx + D")
-        c = sd.askfloat('User Input', "Input a C value / Ax^3 + Bx^2 + Cx + D")
-        d = sd.askfloat('User Input', "Input a D value / Ax^3 + Bx^2 + Cx + D")
-        if a == None or b == None or c == None:
-            return
-
-        canvas1.destroy()
-        y = ((a * (x ** 3)) + (b * x ** 2) + (c * x) + d)
-
-        PageOne.graph(self, x, y)
-        
-
+        InputPad = NP.NumberPad(6, canvas1, self, PageOne)
     
     def ChangeText(self,ProblemText):
 

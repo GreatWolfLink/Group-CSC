@@ -1,43 +1,121 @@
 #### number pad ####
 import tkinter as tk
-
-
+import numpy as np
 
 class NumberPad():
-    def __init__(self):
-
-        text = ""
-
-        window = tk.Tk()
+    def __init__(self, numOfInputs, canvas,frame, page):
+        self.window = tk.Tk()
         xspace=10
         yspace=10
 
+        self.page = page
+        self.frame = frame
 
+        self.canvas = canvas
 
-        def Input(number):
+        self.numOfInputs = numOfInputs
+        self.currentInput = 0
+        self.Inputs = []
 
-            text = text + tk.StringVar().get()
-            print(text)
+        self.labelText = "   "
     
-        for row in range(1,5):
-            tk.Grid.rowconfigure(window,row,weight=1)
+        for row in range(1,7):
+            tk.Grid.rowconfigure(self.window,row,weight=1)
 
         for column in range(1,3):
-            tk.Grid.columnconfigure(window,row,weight=1)
+            tk.Grid.columnconfigure(self.window,row,weight=1)
 
-        Label = tk.Label(window,text="",relief="solid",textvariable=text).grid(row=1,column=1,columnspan=3)
-        One = tk.Button(window,text="1",command=lambda:Input("1")).grid(row=2,column=1,padx=xspace,pady=yspace)
-        Two = tk.Button(window,text="2",command=lambda:Input("2")).grid(row=2,column=2,padx=xspace,pady=yspace)
-        Three = tk.Button(window,text="3",command=lambda:Input("3")).grid(row=2,column=3,padx=xspace,pady=yspace)
-        Four = tk.Button(window,text="4",command=lambda:Input("4")).grid(row=3,column=1,padx=xspace,pady=yspace)
-        Five = tk.Button(window,text="5",command=lambda:Input("5")).grid(row=3,column=2,padx=xspace,pady=yspace)
-        Six = tk.Button(window,text="6",command=lambda:Input("6")).grid(row=3,column=3,padx=xspace,pady=yspace)
-        Seven = tk.Button(window,text="7",command=lambda:Input("7")).grid(row=4,column=1,padx=xspace,pady=yspace)
-        Eight = tk.Button(window,text="8",command=lambda:Input("8")).grid(row=4,column=2,padx=xspace,pady=yspace)
-        Nine = tk.Button(window,text="9",command=lambda:Input("9")).grid(row=4,column=3,padx=xspace,pady=yspace)
-        Zero = tk.Button(window,text="0",command=lambda:Input("0")).grid(row=5,column=1,padx=xspace,pady=yspace)
-        Decimal = tk.Button(window,text=".",command=lambda:Input(".")).grid(row=5,column=2,padx=xspace,pady=yspace)
-        Negative = tk.Button(window,text="-",command=lambda:Input("-")).grid(row=5,column=3,padx=xspace,pady=yspace)
+        self.labelHelp = tk.Label(self.window)
+        self.labelHelp.grid(row=1,column=1,columnspan=3)
+        self.labelHelp.config(text = "Enter Left Bound")
+
+        self.label = tk.Label(self.window,text = self.labelText, relief = "solid")
+        self.label.grid(row=2,column=1,columnspan=3)
+
+        One = tk.Button(self.window,text="1",command=lambda:self.Input("1")).grid(row=3,column=1,padx=xspace,pady=yspace)
+        Two = tk.Button(self.window,text="2",command=lambda:self.Input("2")).grid(row=3,column=2,padx=xspace,pady=yspace)
+        Three = tk.Button(self.window,text="3",command=lambda:self.Input("3")).grid(row=3,column=3,padx=xspace,pady=yspace)
+        Four = tk.Button(self.window,text="4",command=lambda:self.Input("4")).grid(row=4,column=1,padx=xspace,pady=yspace)
+        Five = tk.Button(self.window,text="5",command=lambda:self.Input("5")).grid(row=4,column=2,padx=xspace,pady=yspace)
+        Six = tk.Button(self.window,text="6",command=lambda:self.Input("6")).grid(row=4,column=3,padx=xspace,pady=yspace)
+        Seven = tk.Button(self.window,text="7",command=lambda:self.Input("7")).grid(row=5,column=1,padx=xspace,pady=yspace)
+        Eight = tk.Button(self.window,text="8",command=lambda:self.Input("8")).grid(row=5,column=2,padx=xspace,pady=yspace)
+        Nine = tk.Button(self.window,text="9",command=lambda:self.Input("9")).grid(row=5,column=3,padx=xspace,pady=yspace)
+        Zero = tk.Button(self.window,text="0",command=lambda:self.Input("0")).grid(row=6,column=1,padx=xspace,pady=yspace)
+        Decimal = tk.Button(self.window,text=".",command=lambda:self.Input(".")).grid(row=6,column=2,padx=xspace,pady=yspace)
+        Negative = tk.Button(self.window,text="-",command=lambda:self.Input("-")).grid(row=6,column=3,padx=xspace,pady=yspace)
+        Submit = tk.Button(self.window, text="Submit", command=lambda:self.SubmitButton()).grid(row=7,column=1,columnspan=3)
+
+    def SubmitButton(self):
+        if self.labelText == "":
+            return
+
+        currentValue = int(self.labelText)
+        self.Inputs.append(currentValue)
+        self.labelText = ""
+        self.label.config(text = "")
+
+        self.currentInput += 1
+
+        print(self.Inputs)
+
+        if self.currentInput == 1:
+            self.labelHelp.config(text = "Enter Right Bound")
+        else:
+            if self.numOfInputs == 4:
+                if(self.currentInput == 2):
+                    self.labelHelp.config(text = "Enter the m: y = mx + b")
+                elif(self.currentInput == 3):
+                    self.labelHelp.config(text = "Enter the b: y = mx + b")
+            elif self.numOfInputs == 5:
+                if self.currentInput == 2:
+                    self.labelHelp.config(text = "Enter the a: y = ax^2 + bx + c")
+                elif self.currentInput == 3:
+                    self.labelHelp.config(text = "Enter the b: y = ax^2 + bx + c")
+                elif self.currentInput == 4:
+                    self.labelHelp.config(text = "Enter the c: y = ax^2 + bx + c")
+            elif self.numOfInputs == 6:
+                if self.currentInput == 2:
+                    self.labelHelp.config(text = "Enter the a: y = ax^3 + bx^2 + cx + d")
+                elif self.currentInput == 3:
+                    self.labelHelp.config(text = "Enter the b: y = ax^3 + bx^2 + cx + d")
+                elif self.currentInput == 4:
+                    self.labelHelp.config(text = "Enter the c: y = ax^3 + bx^2 + cx + d")
+                elif self.currentInput == 5:
+                    self.labelHelp.config(text = "Enter the d: y = ax^3 + bx^2 + cx + d")
+
+        if self.currentInput >= self.numOfInputs:
+            self.window.destroy()
+
+            self.canvas.destroy()      
+
+            LeftBound = self.Inputs[0]
+            RightBound = self.Inputs[1]
+
+            x = np.arange(LeftBound, RightBound, 1)
+
+            if self.numOfInputs == 4:
+                m = self.Inputs[2]
+                b = self.Inputs[3]
+                y = (m * x) + b
+            elif self.numOfInputs == 5:
+                a = self.Inputs[2]
+                b = self.Inputs[3]
+                c = self.Inputs[4]
+                y = (a * (x ** 2)) + (b * x) + c
+            elif self.numOfInputs == 6:
+                a = self.Inputs[2]
+                b = self.Inputs[3]
+                c = self.Inputs[4]
+                d = self.Inputs[5]
+                y = ((a * (x ** 3)) + (b * x ** 2) + (c * x) + d)
+            
+            self.page.graph(self.frame, x, y)
+
+    def Input(self, number):
+        self.labelText = self.labelText + str(number)
+        self.label.config(text = self.labelText)
+
 
 
     
