@@ -29,7 +29,7 @@ BorderType = "solid"
 
 window = tk.Tk()
 frame = tk.Frame(window)
-#window.attributes('-zoomed',True)
+window.attributes('-zoomed',True)
 
 WindowWidth = window.winfo_screenwidth()
 WindowHeight = window.winfo_screenheight()

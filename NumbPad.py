@@ -58,6 +58,8 @@ class NumberPad():
     def SubmitButton(self):
         if self.labelText == "":
             return
+        elif self.labelText == "   ":
+            return
 
         currentValue = int(self.labelText)
         self.Inputs.append(currentValue)
@@ -122,6 +124,8 @@ class NumberPad():
             self.page.graph(self.frame, x, y)
 
     def Input(self, number):
+        if self.labelText == "   ":
+            self.labelText = ""
         self.labelText = self.labelText + str(number)
         self.label.config(text = self.labelText)
 
