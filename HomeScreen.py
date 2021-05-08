@@ -5,18 +5,21 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 import random
 from matplotlib.figure import Figure
-import math
 from PIL import ImageTk, Image
+import NumbPad as NP
+
+
 
 #NOTE::This is the path to the background sprite
 backgroundSpritePath = "Background.jpg"
 
-Font = ("Bahnschrift SemiCondensed", 60)
+Font = ("Bahnschrift SemiCondensed", 30)
 Font2 = ("Times", 30)
+Font3 = ("Times", 15)
 window = tk.Tk()
 frame = tk.Frame(window)
-window.state('zoomed')
-window.resizable(0, 0)
+window.attributes('-zoomed',True)
+
 WindowWidth = window.winfo_screenwidth()
 WindowHeight = window.winfo_screenheight()
 
@@ -130,9 +133,9 @@ class PageOne(tk.Frame):
         ProblemText = tk.StringVar()
         ProblemText.set(" ")
         ProblemLabel = tk.Label(self, textvariable=ProblemText)
-        GenerateProblemButton = tk.Button(self, text="Generate Problem",command=lambda: self.ChangeText(ProblemText),font=Font2)
+        GenerateProblemButton = tk.Button(self, text="Generate Problem",command=lambda: self.ChangeText(ProblemText),font=Font3)
 
-        GenerateProblemButton.grid(row=0,column=12,columnspan=2,sticky=tk.N+tk.W+tk.E)
+        GenerateProblemButton.grid(row=0,column=12,columnspan=2)
         ProblemLabel.grid(row=1,column=12,columnspan=2)
 
         
@@ -151,7 +154,7 @@ class PageOne(tk.Frame):
         ############ shows blank graph
         canvas1 = tk.Canvas(self)
         canvas1.grid(row=1,column=9)
-        fig = Figure(figsize=(7,7), dpi = 100)
+        fig = Figure(figsize=(3,3), dpi = 100)
         plot1 = fig.add_subplot(111)
         plot1.plot()
         plot1.grid()
@@ -171,7 +174,7 @@ class PageOne(tk.Frame):
     def graph(self, x, y):
         if self.can:
             self.can.destroy()
-        f = plt.figure()
+        f = plt.figure(figsize=(3,3))
         canvas = FigureCanvasTkAgg(f, self)
         axes = f.add_subplot(111)
         axes.plot(x, y)
@@ -186,7 +189,7 @@ class PageOne(tk.Frame):
         axes.grid()
        
         self.can = canvas.get_tk_widget()
-        self.can.grid(row=1,column=9)
+        self.can.grid(row=3,column=7)
 
         ValuesLabel = tk.Label(self, text="x and y values")
         ValuesLabel.grid(row=10,column=12)
@@ -295,7 +298,7 @@ class PageTwo(tk.Frame):
             tk.Grid.columnconfigure(self,column,weight=1)
 
 
-        label = tk.Label(self, text=" \n 1. Generate a random problem \n\n 2. Select function button appropriate for question \n\n 3. Input parameters asked in question \n\n 4. Use visual to help solve problem ", fg="green", font=Font2)
+        label = tk.Label(self, text=" \n 1. Generate a random problem \n\n 2. Select function button appropriate for question \n\n 3. Input parameters asked in question \n\n 4. Use visual to help solve problem ", fg="green", font=Font3)
         label.grid(row=4,column=7)
 
         button = tk.Button(self, text="back", fg="blue", command=lambda: controller.show_frame(StartPage),height = height)
@@ -327,8 +330,8 @@ class PageThree(tk.Frame):
         for column in range(15):
             tk.Grid.columnconfigure(self,column,weight=1)
 
-        label = tk.Label(self, text="\nGrant Gremillion \n \n \nConnor Broussard \n \n \nEthan Joyce", fg="green",font=Font2)
-        label.grid(row=5,column=7)
+        label = tk.Label(self, text="\nGrant Gremillion \n \n \nConnor Broussard \n \n \nEthan Joyce", fg="green",font=Font3)
+        label.grid(row=5,column=6)
 
         button = tk.Button(self, text="back", fg="blue", command=lambda: controller.show_frame(StartPage),height=height)
         button.grid(row=15,column=0,sticky=tk.N+tk.W+tk.E)
