@@ -28,6 +28,7 @@ BorderType = "solid"
 
 
 window = tk.Tk()
+window.title("Graphing Tool")
 frame = tk.Frame(window)
 window.attributes('-zoomed',True)
 

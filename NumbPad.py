@@ -1,10 +1,20 @@
 #### number pad ####
 import tkinter as tk
 import numpy as np
+from PIL import Image, ImageTk
+
+
+FGLabelColor = "navy"
+BGLabelColor = "light blue"
+FGButtonColor = "pink"
+BGButtonColor = "navy"
 
 class NumberPad():
     def __init__(self, numOfInputs, canvas,frame, page):
         self.window = tk.Tk()
+        self.window.config(bg="light blue")
+        self.window.resizable(0,0)
+        self.window.title("Number Pad")
         xspace=10
         yspace=10
 
@@ -18,34 +28,34 @@ class NumberPad():
         self.Inputs = []
 
         self.labelText = "   "
-    
+        
         for row in range(1,7):
             tk.Grid.rowconfigure(self.window,row,weight=1)
 
         for column in range(1,3):
             tk.Grid.columnconfigure(self.window,row,weight=1)
 
-        self.labelHelp = tk.Label(self.window)
+        self.labelHelp = tk.Label(self.window,fg=FGLabelColor,bg=BGLabelColor)
         self.labelHelp.grid(row=1,column=1,columnspan=3)
         self.labelHelp.config(text = "Enter Left Bound")
 
         self.label = tk.Label(self.window,text = self.labelText, relief = "solid")
         self.label.grid(row=2,column=1,columnspan=3)
 
-        One = tk.Button(self.window,text="1",command=lambda:self.Input("1")).grid(row=3,column=1,padx=xspace,pady=yspace)
-        Two = tk.Button(self.window,text="2",command=lambda:self.Input("2")).grid(row=3,column=2,padx=xspace,pady=yspace)
-        Three = tk.Button(self.window,text="3",command=lambda:self.Input("3")).grid(row=3,column=3,padx=xspace,pady=yspace)
-        Four = tk.Button(self.window,text="4",command=lambda:self.Input("4")).grid(row=4,column=1,padx=xspace,pady=yspace)
-        Five = tk.Button(self.window,text="5",command=lambda:self.Input("5")).grid(row=4,column=2,padx=xspace,pady=yspace)
-        Six = tk.Button(self.window,text="6",command=lambda:self.Input("6")).grid(row=4,column=3,padx=xspace,pady=yspace)
-        Seven = tk.Button(self.window,text="7",command=lambda:self.Input("7")).grid(row=5,column=1,padx=xspace,pady=yspace)
-        Eight = tk.Button(self.window,text="8",command=lambda:self.Input("8")).grid(row=5,column=2,padx=xspace,pady=yspace)
-        Nine = tk.Button(self.window,text="9",command=lambda:self.Input("9")).grid(row=5,column=3,padx=xspace,pady=yspace)
-        Zero = tk.Button(self.window,text="0",command=lambda:self.Input("0")).grid(row=6,column=1,padx=xspace,pady=yspace)
-        Decimal = tk.Button(self.window,text=".",command=lambda:self.Input(".")).grid(row=6,column=2,padx=xspace,pady=yspace)
-        Negative = tk.Button(self.window,text="-",command=lambda:self.Input("-")).grid(row=6,column=3,padx=xspace,pady=yspace)
-        Submit = tk.Button(self.window, text="Submit", command=lambda:self.SubmitButton()).grid(row=7,column=1,columnspan=1)
-        Submit = tk.Button(self.window, text="Delete", command=lambda:self.DeleteButton()).grid(row=7,column=3,columnspan=1)
+        One = tk.Button(self.window,text="1",command=lambda:self.Input("1"),fg=FGButtonColor,bg=BGButtonColor).grid(row=3,column=1,padx=xspace,pady=yspace)
+        Two = tk.Button(self.window,text="2",command=lambda:self.Input("2"),fg=FGButtonColor,bg=BGButtonColor).grid(row=3,column=2,padx=xspace,pady=yspace)
+        Three = tk.Button(self.window,text="3",command=lambda:self.Input("3"),fg=FGButtonColor,bg=BGButtonColor).grid(row=3,column=3,padx=xspace,pady=yspace)
+        Four = tk.Button(self.window,text="4",command=lambda:self.Input("4"),fg=FGButtonColor,bg=BGButtonColor).grid(row=4,column=1,padx=xspace,pady=yspace)
+        Five = tk.Button(self.window,text="5",command=lambda:self.Input("5"),fg=FGButtonColor,bg=BGButtonColor).grid(row=4,column=2,padx=xspace,pady=yspace)
+        Six = tk.Button(self.window,text="6",command=lambda:self.Input("6"),fg=FGButtonColor,bg=BGButtonColor).grid(row=4,column=3,padx=xspace,pady=yspace)
+        Seven = tk.Button(self.window,text="7",command=lambda:self.Input("7"),fg=FGButtonColor,bg=BGButtonColor).grid(row=5,column=1,padx=xspace,pady=yspace)
+        Eight = tk.Button(self.window,text="8",command=lambda:self.Input("8"),fg=FGButtonColor,bg=BGButtonColor).grid(row=5,column=2,padx=xspace,pady=yspace)
+        Nine = tk.Button(self.window,text="9",command=lambda:self.Input("9"),fg=FGButtonColor,bg=BGButtonColor).grid(row=5,column=3,padx=xspace,pady=yspace)
+        Zero = tk.Button(self.window,text="0",command=lambda:self.Input("0"),fg=FGButtonColor,bg=BGButtonColor).grid(row=6,column=1,padx=xspace,pady=yspace)
+        Decimal = tk.Button(self.window,text=".",command=lambda:self.Input("."),fg=FGButtonColor,bg=BGButtonColor).grid(row=6,column=2,padx=xspace,pady=yspace)
+        Negative = tk.Button(self.window,text="-",command=lambda:self.Input("-"),fg=FGButtonColor,bg=BGButtonColor).grid(row=6,column=3,padx=xspace,pady=yspace)
+        Submit = tk.Button(self.window, text="Submit", command=lambda:self.SubmitButton(),fg=FGButtonColor,bg=BGButtonColor).grid(row=7,column=1,columnspan=1)
+        Submit = tk.Button(self.window, text="Delete", command=lambda:self.DeleteButton(),fg=FGButtonColor,bg=BGButtonColor).grid(row=7,column=3,columnspan=1)
 
     def DeleteButton(self):
         if self.labelText == "":
