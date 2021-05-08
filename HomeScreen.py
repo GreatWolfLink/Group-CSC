@@ -6,7 +6,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 import random
 from matplotlib.figure import Figure
 from PIL import ImageTk, Image
-#import NumbPad as NP
+import NumbPad as NP
 
 
 
@@ -243,6 +243,11 @@ class PageOne(tk.Frame):
         PageOne.graph(self, x, y)
 
     def LinearInput(self,canvas1):
+
+        InputPad = NP.NumberPad()
+
+        
+        
         LeftBound = sd.askfloat('User Input', "Input lower x range")
         RightBound = sd.askfloat('User Input', "Input upper x range")
 
