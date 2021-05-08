@@ -6,7 +6,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 import random
 from matplotlib.figure import Figure
 from PIL import ImageTk, Image
-import NumbPad as NP
+#import NumbPad as NP
 
 
 
@@ -16,6 +16,16 @@ backgroundSpritePath = "Background.jpg"
 Font = ("Bahnschrift SemiCondensed", 30)
 Font2 = ("Times", 30)
 Font3 = ("Times", 15)
+
+
+FGLabelColor = "navy"
+BGLabelColor = "orchid1"
+FGButtonColor = "pink"
+BGButtonColor = "navy"
+BorderSize = 2
+BorderType = "solid"
+
+
 window = tk.Tk()
 frame = tk.Frame(window)
 window.attributes('-zoomed',True)
@@ -32,7 +42,6 @@ height = 5
 
 ButtonHeightWeight = 2
 FontColor = "blue"
-
 
 class GUI():
     def __init__(self, frame, window):
@@ -79,7 +88,7 @@ class StartPage(tk.Frame):
 
         self.background_label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
         
-        label = tk.Label(self, text="Optimized Graphing Tool", font=Font)
+        label = tk.Label(self, text="Optimized Graphing Tool",relief=BorderType,borderwidth=BorderSize,fg=FGLabelColor,bg=BGLabelColor, font=Font)
         label.grid(row=0,column=0,columnspan=15)
 
         for row in range(15):
@@ -87,23 +96,25 @@ class StartPage(tk.Frame):
         for column in range(15):
             tk.Grid.columnconfigure(self,column,weight=1)
 
-        button1 = tk.Button(self, text="Plot", fg=FontColor, command=lambda: controller.show_frame(PageOne), font=Font2, height=ButtonHeightWeight,width=Width)
+        button1 = tk.Button(self, text="Plot", fg=FGButtonColor,bg=BGButtonColor, command=lambda: controller.show_frame(PageOne), font=Font2, height=ButtonHeightWeight,width=Width)
         button1.grid(row=4,column=6,sticky=tk.N+tk.S+tk.E+tk.W)
 
-        button2 = tk.Button(self, text="Instructions", fg=FontColor, command=lambda: controller.show_frame(PageTwo), font=Font2, height=ButtonHeightWeight,width=Width)
+        button2 = tk.Button(self, text="Instructions", fg=FGButtonColor,bg=BGButtonColor, command=lambda: controller.show_frame(PageTwo), font=Font2, height=ButtonHeightWeight,width=Width)
         button2.grid(row=4,column=8,sticky=tk.N+tk.S+tk.E+tk.W)
 
-        button3 = tk.Button(self, text="Creators", fg=FontColor, command=lambda: controller.show_frame(PageThree), font=Font2, height=ButtonHeightWeight,width=Width)
+        button3 = tk.Button(self, text="Creators", fg=FGButtonColor,bg=BGButtonColor, command=lambda: controller.show_frame(PageThree), font=Font2, height=ButtonHeightWeight,width=Width)
         button3.grid(row=6,column=6,sticky=tk.N+tk.S+tk.E+tk.W)
 
-        button4 = tk.Button(self, text="Exit", fg=FontColor, command=lambda: GUI.Quit(), font=Font2,height=ButtonHeightWeight,width=Width)
+        button4 = tk.Button(self, text="Exit", fg=FGButtonColor,bg=BGButtonColor, command=lambda: GUI.Quit(), font=Font2,height=ButtonHeightWeight,width=Width)
         button4.grid(row=6,column=8,sticky=tk.N+tk.S+tk.E+tk.W)
 
 
 class PageOne(tk.Frame):
-
+    
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
+        self.CurrentProblem = 0
 
         width = 5
         self.can = None
@@ -121,7 +132,7 @@ class PageOne(tk.Frame):
 
         self.background_label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
-        label = tk.Label(self, text="Plot", font=Font)
+        label = tk.Label(self, text="Plot",fg=FGLabelColor,bg=BGLabelColor,relief=BorderType,borderwidth=BorderSize, font=Font)
         label.grid(row=0,column=0,columnspan=15)
         
         for row in range(15):
@@ -131,29 +142,29 @@ class PageOne(tk.Frame):
 
 
         ProblemText = tk.StringVar()
-        ProblemText.set(" ")
-        ProblemLabel = tk.Label(self, textvariable=ProblemText)
-        GenerateProblemButton = tk.Button(self, text="Generate Problem",command=lambda: self.ChangeText(ProblemText),font=Font3)
+        ProblemText.set("Problems will appear here")
+        ProblemLabel = tk.Label(self, textvariable=ProblemText,fg=FGLabelColor,bg=BGLabelColor,relief=BorderType,borderwidth=BorderSize)
+        GenerateProblemButton = tk.Button(self, text="Generate Problem",command=lambda: self.ChangeText(ProblemText),fg=FGButtonColor,bg=BGButtonColor,font=Font3)
 
         GenerateProblemButton.grid(row=0,column=12,columnspan=2)
         ProblemLabel.grid(row=1,column=12,columnspan=2)
 
         
-        ParabolaButton = tk.Button(self, text="Quadratic", fg="blue",command=lambda: PageOne.ParabolaInput(self,canvas1),height=height,width=width)
+        ParabolaButton = tk.Button(self, text="Quadratic", fg=FGButtonColor,bg=BGButtonColor,command=lambda: PageOne.ParabolaInput(self,canvas1),height=height,width=width)
         ParabolaButton.grid(row=1,column=0,sticky=tk.N+tk.W+tk.E)
 
-        LinearButton = tk.Button(self, text="Linear", fg="blue",command=lambda: PageOne.LinearInput(self,canvas1),height=height,width=width)
+        LinearButton = tk.Button(self, text="Linear", fg=FGButtonColor,bg=BGButtonColor,command=lambda: PageOne.LinearInput(self,canvas1),height=height,width=width)
         LinearButton.grid(row=1,column=1,sticky=tk.N+tk.W+tk.E)
 
 
-        CubicButton = tk.Button(self, text="Cubic", fg="blue", command=lambda: PageOne.CubicInput(self,canvas1),height=height,width=width)
+        CubicButton = tk.Button(self, text="Cubic", fg=FGButtonColor,bg=BGButtonColor, command=lambda: PageOne.CubicInput(self,canvas1),height=height,width=width)
         CubicButton.grid(row=1,column=2,sticky=tk.N+tk.W+tk.E)
 
     
 
         ############ shows blank graph
         canvas1 = tk.Canvas(self)
-        canvas1.grid(row=1,column=9)
+        canvas1.grid(row=1,column=4,rowspan=3,columnspan=3)
         fig = Figure(figsize=(3,3), dpi = 100)
         plot1 = fig.add_subplot(111)
         plot1.plot()
@@ -161,11 +172,11 @@ class PageOne(tk.Frame):
         plot1.margins(1000,1000)
         canvas2 = FigureCanvasTkAgg(fig, master = canvas1)
         canvas2.draw
-        canvas2.get_tk_widget().grid(row=3,column=7)
+        canvas2.get_tk_widget().grid()
         #############
 
-        button = tk.Button(self, text="Back", fg="blue",command=lambda: controller.show_frame(StartPage),height=height)
-        button.grid(row=15,column=0,sticky=tk.N+tk.W+tk.E)
+        button = tk.Button(self, text="Back", fg=FGButtonColor,bg=BGButtonColor,command=lambda: controller.show_frame(StartPage),height=height)
+        button.grid(row=10,column=0,rowspan=8,sticky=tk.N+tk.W+tk.E)
 
         
     # Graphs based on an x value and a y value
@@ -189,22 +200,22 @@ class PageOne(tk.Frame):
         axes.grid()
        
         self.can = canvas.get_tk_widget()
-        self.can.grid(row=3,column=7)
+        self.can.grid(row=1,column=4,rowspan=3,columnspan=3)
 
-        ValuesLabel = tk.Label(self, text="x and y values")
-        ValuesLabel.grid(row=10,column=12)
-    
+##        ValuesLabel = tk.Label(self, text="x and y values")
+##        ValuesLabel.grid(row=10,column=12)
+##    
 
-        List = tk.Listbox(self)
-        j = 1
-        for i in x:
-            List.insert(j,i)
-            j+=1
-        List.grid(row=11,column=12)
-
-        ScrollBar = tk.Scrollbar(self,command=List.yview)
-        ScrollBar.grid(row=13,column=13)
-
+##        List = tk.Listbox(self)
+##        j = 1
+##        for i in x:
+##            List.insert(j,i)
+##            j+=1
+##        List.grid(row=11,column=12)
+##
+##        ScrollBar = tk.Scrollbar(self,command=List.yview)
+##        ScrollBar.grid(row=13,column=13)
+##
 
         
 
@@ -266,8 +277,24 @@ class PageOne(tk.Frame):
 
     
     def ChangeText(self,ProblemText):
-        QuestionList = ["Graph the equation 4x^2 + 3x + 28 \n and compute the range and domain \n of the function.","q2","q3","q4","q5"]
-        ProblemText.set(random.choice(QuestionList))
+
+        
+
+        QuestionList = ["Graph a cubic \nequation with a B \nvalue of 34",
+                        "Graph a linear \nfunction with a \nslope of 4.6 and y \nintercept of 8",
+                        "Graph a cubic \nfunction with a\n y intercept \nof 3",
+                        "Graph a quadratic \nfunction with an A \nvalue of -3",
+                        "Graph a linear \nfunction with a \nslope of 0 and y \nintercept of 3"]
+
+        ProblemText.set(QuestionList[self.CurrentProblem])
+        
+        self.CurrentProblem +=1
+
+        if self.CurrentProblem > 4:
+            self.CurrentProblem = 0
+
+        
+        
 
         
 
@@ -289,7 +316,7 @@ class PageTwo(tk.Frame):
 
         self.background_label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
-        label = tk.Label(self, text="Instructions:", font=Font)
+        label = tk.Label(self, text="Instructions",fg=FGLabelColor,bg=BGLabelColor,relief=BorderType,borderwidth=BorderSize, font=Font)
         label.grid(row=0,column=0,columnspan=15)
 
         for row in range(15):
@@ -298,10 +325,10 @@ class PageTwo(tk.Frame):
             tk.Grid.columnconfigure(self,column,weight=1)
 
 
-        label = tk.Label(self, text=" \n 1. Generate a random problem \n\n 2. Select function button appropriate for question \n\n 3. Input parameters asked in question \n\n 4. Use visual to help solve problem ", fg="green", font=Font3)
-        label.grid(row=4,column=7)
+        label = tk.Label(self, relief=BorderType,borderwidth=BorderSize,text=" \n 1. Generate a random problem \n\n 2. Select function button appropriate for question \n\n 3. Input parameters asked in question \n\n 4. Use visual to help solve problem ",fg=FGLabelColor,bg=BGLabelColor, font=Font3)
+        label.grid(row=4,column=0,columnspan=15)
 
-        button = tk.Button(self, text="back", fg="blue", command=lambda: controller.show_frame(StartPage),height = height)
+        button = tk.Button(self, text="back",fg=FGButtonColor,bg=BGButtonColor, command=lambda: controller.show_frame(StartPage),height = height)
         button.grid(row=15,column=0,sticky=tk.N+tk.W+tk.E)
 
 
@@ -322,7 +349,7 @@ class PageThree(tk.Frame):
 
         self.background_label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
-        label = tk.Label(self, text="Creators:", font=Font)
+        label = tk.Label(self, text="Creators",fg=FGLabelColor,bg=BGLabelColor,relief=BorderType,borderwidth=BorderSize, font=Font)
         label.grid(row=0,column=0,columnspan=15)
 
         for row in range(15):
@@ -330,10 +357,10 @@ class PageThree(tk.Frame):
         for column in range(15):
             tk.Grid.columnconfigure(self,column,weight=1)
 
-        label = tk.Label(self, text="\nGrant Gremillion \n \n \nConnor Broussard \n \n \nEthan Joyce", fg="green",font=Font3)
-        label.grid(row=5,column=6)
+        label = tk.Label(self, text="\n----Grant Gremillion----\n\n\n----Connor Broussard----\n\n\n----Ethan Joyce----",fg=FGLabelColor,bg=BGLabelColor,font=Font3,relief=BorderType,borderwidth=BorderSize)
+        label.grid(row=5,column=0,columnspan=15)
 
-        button = tk.Button(self, text="back", fg="blue", command=lambda: controller.show_frame(StartPage),height=height)
+        button = tk.Button(self, text="back",fg=FGButtonColor,bg=BGButtonColor, command=lambda: controller.show_frame(StartPage),height=height)
         button.grid(row=15,column=0,sticky=tk.N+tk.W+tk.E)
 
 
