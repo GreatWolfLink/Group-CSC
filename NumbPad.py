@@ -44,7 +44,16 @@ class NumberPad():
         Zero = tk.Button(self.window,text="0",command=lambda:self.Input("0")).grid(row=6,column=1,padx=xspace,pady=yspace)
         Decimal = tk.Button(self.window,text=".",command=lambda:self.Input(".")).grid(row=6,column=2,padx=xspace,pady=yspace)
         Negative = tk.Button(self.window,text="-",command=lambda:self.Input("-")).grid(row=6,column=3,padx=xspace,pady=yspace)
-        Submit = tk.Button(self.window, text="Submit", command=lambda:self.SubmitButton()).grid(row=7,column=1,columnspan=3)
+        Submit = tk.Button(self.window, text="Submit", command=lambda:self.SubmitButton()).grid(row=7,column=1,columnspan=1)
+        Submit = tk.Button(self.window, text="Delete", command=lambda:self.DeleteButton()).grid(row=7,column=3,columnspan=1)
+
+    def DeleteButton(self):
+        if self.labelText == "":
+            return
+
+        self.labelText = self.labelText[0 : len(self.labelText) - 1 : ] + self.labelText[len(self.labelText) : :]
+        self.label.config(text = self.labelText)
+        
 
     def SubmitButton(self):
         if self.labelText == "":
