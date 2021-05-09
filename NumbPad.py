@@ -8,6 +8,8 @@ FGLabelColor = "navy"
 BGLabelColor = "light blue"
 FGButtonColor = "pink"
 BGButtonColor = "navy"
+Font = ("Times", 15)
+
 
 class NumberPad():
     def __init__(self, numOfInputs, canvas,frame, page):
@@ -118,7 +120,7 @@ class NumberPad():
             if self.numOfInputs == 4:
                 m = self.Inputs[2]
                 b = self.Inputs[3]
-                y = (m * x) + b
+                y = (m * x) + b 
             elif self.numOfInputs == 5:
                 a = self.Inputs[2]
                 b = self.Inputs[3]
@@ -132,6 +134,18 @@ class NumberPad():
                 y = ((a * (x ** 3)) + (b * x ** 2) + (c * x) + d)
             
             self.page.graph(self.frame, x, y)
+
+            if self.numOfInputs == 4:
+                equation = "y = " + str(m) + "x " + "+ " + str(b)
+
+            if self.numOfInputs == 5:
+                equation = "y = " + str(a) + "x^2 " + "+ " + str(b) + "x " + " + " + str(c)
+
+            if self.numOfInputs == 6:
+                equation = "y = " + str(a) + "x^3" + " + "+ str(b) + " x^2 " + "+" + str(c) + " x " + " + " + str(d)
+
+
+            ProblemLabel = tk.Label(self.frame,text=equation,fg=FGLabelColor,bg=BGLabelColor,relief = "solid").grid(row=5,column=4,rowspan=2,columnspan=2)
 
     def Input(self, number):
         if self.labelText == "   ":
