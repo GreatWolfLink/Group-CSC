@@ -30,7 +30,7 @@ BorderType = "solid"
 window = tk.Tk()
 window.title("Graphing Tool")
 frame = tk.Frame(window)
-window.attributes('-zoomed',True)
+#window.attributes('-zoomed',True)
 
 WindowWidth = window.winfo_screenwidth()
 WindowHeight = window.winfo_screenheight()
@@ -52,6 +52,18 @@ class GUI():
         frame.grid_rowconfigure(0, weight=1)
         frame.grid_columnconfigure(0, weight=1)
 
+        #NOTE::have to update window before grabbing width and height
+        window.update()
+        ScreenWidth = window.winfo_width()
+        ScreenHeight = window.winfo_height()
+
+        #NOTE::Adding background image
+        self.img = ImageTk.PhotoImage(Image.open(backgroundSpritePath).resize((ScreenWidth, ScreenHeight)))
+        self.background_label = tk.Label(window, image=self.img)
+        self.background_label.image = self.background_label
+
+        self.background_label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+
         self.frames = {}
 
         for F in (StartPage, PageOne, PageTwo, PageThree):
@@ -62,6 +74,7 @@ class GUI():
             LocalFrame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame(StartPage)
+        self.background_label.destroy()
 
     def show_frame(self, Page):
         frame = self.frames[Page]
