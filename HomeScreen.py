@@ -30,7 +30,7 @@ BorderType = "solid"
 window = tk.Tk()
 window.title("Graphing Tool")
 frame = tk.Frame(window)
-#window.attributes('-zoomed',True)
+window.attributes('-zoomed',True)
 
 WindowWidth = window.winfo_screenwidth()
 WindowHeight = window.winfo_screenheight()
